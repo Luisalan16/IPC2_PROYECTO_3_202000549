@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<diccionario>
+    <sentimientos_positivos>
+        <palabra> bueno </palabra>
+        <palabra> excelente </palabra>
+        <palabra> cool </palabra>
+        <palabra> satisfecho </palabra>
+        <palabra> maravilloso </palabra>
+        <palabra> fantástico </palabra>
+        <palabra> encantador </palabra>
+        <palabra> alegre </palabra>
+        <palabra> brillante </palabra>
+        <palabra> triunfante </palabra>
+        <palabra> agradable </palabra>
+    </sentimientos_positivos>
+    <sentimientos_negativos>
+        <palabra> malo </palabra>
+        <palabra> pésimo </palabra>
+        <palabra> triste </palabra>
+        <palabra> molesto </palabra>
+        <palabra> decepcionado </palabra>
+        <palabra> enojo </palabra>
+        <palabra> horrible </palabra>
+        <palabra> desagradable </palabra>
+        <palabra> desastroso </palabra>
+        <palabra> lamentable </palabra>
+    </sentimientos_negativos>
+</diccionario>

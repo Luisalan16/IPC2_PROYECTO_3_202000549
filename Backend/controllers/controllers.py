@@ -1,17 +1,63 @@
 import xml.etree.ElementTree as ET
 import os
 
-class Gestor:
+class Configuracion:
     def __init__(self) -> None:
-        self.palabras = []
-        self.hashtags = []
+        self.palabras_positivas = []
+        self.palabras_negativas = []
+        self.mensajes = []
+        self.hashtags_ = []
         self.menciones = []
         self.feelings = []
         self.simbolos = "@(_?-+:[0-9]"
 
-    def setPalabrasBonitas(self, palabras_positivas,palabras_negativas):
-        set = Configuracion(palabras_positivas, palabras_negativas)
-        self.palabras.append(set)
+    def setPalabrasBonitas(self, palabras_positivas):
+        set = Sentimiento_positivo(palabras_positivas)
+        self.palabras_positivas.append(set)
+    
+    def setPalabrasBonitas(self, palabras_negativas):
+        set = Sentimiento_negativo(palabras_negativas)
+        self.palabras_negativas.append(set)
+    
+    def setMensajes(self, date, text):
+        mensaje = Mensaje(date, text)
+        self.mensajes.append(mensaje)
+
+    # Método para consultar datos
+    def consultarData(self):
+        json = []
+        for i in self.hashtags_:
+            hashtag = {
+                'Datos':'Hashtags',
+                'hashtag': i.hashtags,
+                'fecha': i.date
+            }
+            json.append(hashtag)
+        for i in self.menciones:
+            mencion = {
+                'Datos':'Menciones de usuarios',
+                'usuario': i.user,
+                'fecha': i.date
+            }
+            json.append(mencion)
+        for i in self.feelings:
+            feel = {
+                'Datos':'Sentimientos de usuarios',
+                'sentimientos_buenos': i.good_feelings,
+                'sentimientos_malos': i.bad_feelings,
+                'fecha': i.date
+            }
+            json.append(feel)
+    
+    def getMensajes(self):
+        json = []
+        for i in self.mensajes:
+            mensaje = {
+                'fecha': i.date,
+                'texto': i.text
+            }
+            json.append(mensaje)
+
 
     def setHashtags(self, hashtags, date):
         set = Hashtag(hashtags, date)
@@ -59,12 +105,15 @@ class Mensaje:
                 mensajes.append(valor(date, text))
         return mensajes
     
-class Configuracion:
-    def __init__(self, palabras_positivas, palabras_negativas):
+class Sentimiento_positivo:
+    def __init__(self, palabras_positivas):
         self.palabras_positivas = palabras_positivas
-        self.palabras_negativas = palabras_negativas
+       
+class Sentimiento_negativo:
+    def __init__(self, palabras_negativas):
+        self.palabras_positivas = palabras_negativas
 
-    @classmethod
+    """ @classmethod
     def load_config(cls, file_path):
         config = {
             'palabras_positivas': set(),
@@ -86,4 +135,4 @@ class Configuracion:
                 for palabra in palabras_negativas:
                     config['palabras_negativas'].add(palabra.text)
 
-        return cls(config['palabras_positivas'], config['palabras_negativas'])
+        return cls(config['palabras_positivas'], config['palabras_negativas']) """

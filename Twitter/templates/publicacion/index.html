@@ -1,28 +1,30 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
+    <title>Inicio</title>
+    <link rel="stylesheet" href="{% static 'estilos.css' %}">
 </head>
 <body>
     <header class="bg_animate">
         <div class="header_nav">
             <div class="contenedor">
-                <h1>ChapinChat</h1>
+                <h1>Tecnologías Chapinas S.A.</h1>
                 <nav>
-                    <a href="#">Comenzar</a>
+                    <a href="{% url 'Twitter-Incio' %}">Comenzar</a>
                 </nav>
             </div>
         </div>
         <section class="banner contenedor">
             <section class="banner_title">
-                <h2>La nueva red <br> está aquí!</h2>
-                <a href="#" class="comenzar">Comenzar!</a>
+                <h2>Vive una nueva <br> experiencia!</h2>
+                <a href="" class="comenzar">Comenzar!</a>
             </section>
             <div class="banner_img">
-                <img src="#" alt="Banner">
+                <img src="{% static 'logo.png' %}" width= 30% height= auto alt="Banner">
             </div>
         </section>
         <div class="burbujas">
@@ -38,6 +40,5 @@
             <div class="burbuja"></div>
         </div>
     </header>
-    
 </body>
 </html>

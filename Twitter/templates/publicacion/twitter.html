@@ -1,0 +1,15 @@
+{% extends 'Publicacion/plantilla.html' %}
+{% load static %}
+
+{% block title %}Tecnologías Chapinas S.A.{% endblock %}
+
+{% block body %}
+<h1>Cargar archivo XML</h1>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Cargar</button>
+  </form>
+
+
+{% endblock %}
