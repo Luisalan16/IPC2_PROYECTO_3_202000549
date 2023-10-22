@@ -3,25 +3,70 @@ import os
 
 class Configuracion:
     def __init__(self) -> None:
-        self.palabras_positivas = []
-        self.palabras_negativas = []
+        self.configuraciones = []
         self.mensajes = []
         self.hashtags_ = []
         self.menciones = []
         self.feelings = []
         self.simbolos = "@(_?-+:[0-9]"
 
-    def setPalabrasBonitas(self, palabras_positivas):
-        set = Sentimiento_positivo(palabras_positivas)
-        self.palabras_positivas.append(set)
+    def setConfiguracion(self, palabras_positivas, palabras_negativas):
+        set = Sentimiento(palabras_positivas, palabras_negativas)
+        self.configuraciones.append(set)
     
-    def setPalabrasBonitas(self, palabras_negativas):
-        set = Sentimiento_negativo(palabras_negativas)
-        self.palabras_negativas.append(set)
     
     def setMensajes(self, date, text):
         mensaje = Mensaje(date, text)
         self.mensajes.append(mensaje)
+    
+    def setHashtags(self, hashtags, date):
+        set = Hashtag(hashtags, date)
+        self.hashtags_.append(set)
+
+    def setMenciones(self, user, date):
+        set = Mencion(user, date)
+        self.menciones.append(set)
+    
+    def getConfiguracion(self):
+        json = []
+        for i in self.configuraciones:
+            configuracion = {
+                'palabras_positivas': i.good_feelings,
+                'palabras_negativas': i.bad_feelings
+            }
+            json.append(configuracion)
+        return json
+    
+    def getMensajes(self):
+        json = []
+        for i in self.mensajes:
+            mensaje = {
+                'fecha': i.date,
+                'texto': i.text
+            }
+            json.append(mensaje)
+        return json
+    
+    def getTags(self):
+        json = []
+        for i in self.hashtags_:
+            tag = {
+                'hashtag': i.hashtags,
+                'fecha': i.date
+            }
+            json.append(tag)
+        return json
+    
+    def getUsers(self):
+        json = []
+        for i in self.menciones:
+            user = {
+                'usuario': i.user,
+                'fecha': i.date
+            }
+            json.append(user)
+        return json
+
 
     # Método para consultar datos
     def consultarData(self):
@@ -43,34 +88,20 @@ class Configuracion:
         for i in self.feelings:
             feel = {
                 'Datos':'Sentimientos de usuarios',
-                'sentimientos_buenos': i.good_feelings,
-                'sentimientos_malos': i.bad_feelings,
+                'sentimientos_buenos': i.palabras_positivas,
+                'sentimientos_malos': i.palabras_negativas,
                 'fecha': i.date
             }
             json.append(feel)
+        return json
     
-    def getMensajes(self):
-        json = []
-        for i in self.mensajes:
-            mensaje = {
-                'fecha': i.date,
-                'texto': i.text
-            }
-            json.append(mensaje)
-
-
-    def setHashtags(self, hashtags, date):
-        set = Hashtag(hashtags, date)
-        self.hashtags.append(set)
-
-    def setMenciones(self, user, date):
-        set = Mencion(user, date)
-        self.menciones.append(set)
+    
+    
 
 # Para las consultas
 class Hashtag:
     def __init__(self, hashtags, date) -> None:
-        self.hastags = hashtags
+        self.hashtags = hashtags
         self.date = date
         self.mensajes = []
 
@@ -81,10 +112,9 @@ class Mencion:
         self.mensajes = []
 
 class Sentimiento:
-    def __init__(self, good_feelings,bad_feelings, date) -> None:
+    def __init__(self, good_feelings,bad_feelings) -> None:
         self.good_feelings = good_feelings
         self.bad_feelings = bad_feelings
-        self.date = date
         self.mensajes = []
 
 # -----------------------------------------------------------------------------------------------------
@@ -94,16 +124,7 @@ class Mensaje:
         self.date = date
         self.text = text
 
-    def cargar_mensajes(valor, ruta):
-        mensajes = []
-        if os.path.exists(ruta):
-            tree = ET.parse(ruta)
-            root = tree.getroot()
-            for mensaje in root.findall('MENSAJE'):
-                text = mensaje.find('TEXTO').text
-                date = mensaje.find('FECHA').text
-                mensajes.append(valor(date, text))
-        return mensajes
+    
     
 class Sentimiento_positivo:
     def __init__(self, palabras_positivas):

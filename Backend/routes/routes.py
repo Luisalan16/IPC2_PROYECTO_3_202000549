@@ -4,6 +4,8 @@ import datetime
 from xml.etree import ElementTree as ET
 from datetime import timezone
 from fpdf import FPDF
+from unidecode import unidecode
+import re
 
 # creo mi app
 mensajes_app = Blueprint("mensajes_app", __name__)
@@ -12,9 +14,6 @@ config = Configuracion()
 def home():
     return 'hola'
 
-@mensajes_app.route('/cargar_mensajes', methods=['GET'])
-def cargar_mensajes():
-    mensajes = Mensaje
 
 @mensajes_app.route('/agregarMensajes', methods=['POST'])
 def agregarMensajes():
@@ -27,6 +26,18 @@ def agregarMensajes():
         for mensaje in mensajes:
             fecha = mensaje.find('FECHA').text
             texto = mensaje.find('TEXTO').text
+            hashtags_encontrados = re.findall(r'#\w+', texto)
+            menciones_encontradas = re.findall(r'@\w+', texto)
+            fecha = unidecode(fecha).lower()
+            texto = unidecode(texto).lower()
+            
+            
+            for hashtag in hashtags_encontrados:
+                config.setHashtags(hashtag, fecha)
+            for user in menciones_encontradas:
+                config.setMenciones(user, fecha)
+
+            config.setMensajes(fecha, texto)
             
             contMensajes += 1
 
@@ -40,18 +51,79 @@ def agregarMensajes():
         return jsonify({
             'respuesta': 'Error en la solicitud'
         })
-    """ try:
+
+""" @mensajes_app.route('/verHashtags', methods=['GET'])
+def verHashtags():
+    tags = config.getTags()
+    return jsonify(tags),200 """
+
+@mensajes_app.route('/consultarDatos', methods=['GET'])
+def verMensajes():
+    msj = config.getMensajes()
+    tags = config.getTags()
+    users = config.getUsers()
+    
+    return jsonify(msj, tags, users),200
+
+@mensajes_app.route('/verConfiguracion', methods = ['GET'])
+def verConfiguracion():
+    configuracion = config.getConfiguracion()
+    return jsonify(configuracion)
+
+
+@mensajes_app.route('/agregarConfiguracion', methods = ['POST'])
+def agregarConfiguracion():
+    contPalabras = 0  
+    try:
         xml = request.data.decode('utf-8')
-        archivo = ET.XML(xml)
-        for mensaje in archivo:
-            config.setMensajes(mensaje('FECHA').text, mensaje('TEXTO').text)
-            contMensajes +=1
+        root = ET.fromstring(xml)
+
+        sentimientos_positivos = root.find('sentimientos_positivos')
+        sentimientos_negativos = root.find('sentimientos_negativos')
+
+        palabras_positivas = []
+        palabras_negativas = []
+
+        if sentimientos_positivos is not None:
+            palabras_positivas = [unidecode(palabra.text).lower() for palabra in sentimientos_positivos.findall('palabra')]
+
+        if sentimientos_negativos is not None:
+            palabras_negativas = [unidecode(palabra.text).lower() for palabra in sentimientos_negativos.findall('palabra')]
+
+        config.setConfiguracion(palabras_positivas, palabras_negativas)
+       
+
         return jsonify({
-            'archivo':'Cargado con éxito',
-            'mensajes agregados':contMensajes
+            'respuesta': 'Palabras procesadas con éxito',
+            'palabras agregadas': len(palabras_positivas) + len(palabras_negativas),
+            'palabras_positivas': len(palabras_positivas),
+            'palabras_negativas': len(palabras_negativas)
+        })
+
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({
+            'respuesta': 'Error en la solicitud'
+        })
+
+@mensajes_app.route('/resetearDatos', methods = ['POST'])
+def resetearDatos():
+    try:
+        config.configuraciones = []
+        config.menciones = []
+        config.mensajes = []
+        config.hashtags_ = []
+        config.feelings = []
+        return jsonify({
+            'respuesta': 'Datos reseteados con éxito',
         })
     except Exception as e:
-        print("Error", str(e))
+        print("Error:", str(e))
         return jsonify({
-            'archivo': 'Error'
-        }) """
+            'respuesta': 'Error al resetear los datos'
+        })
+
+
+
+
+
