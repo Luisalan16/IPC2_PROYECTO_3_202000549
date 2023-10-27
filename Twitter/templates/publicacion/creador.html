@@ -1,0 +1,87 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creador</title>
+    <link rel="stylesheet" href="{% static 'creador.css' %}">
+    
+    
+</head>
+<body>
+  <nav class="nav nav-pills nav-fill">
+    <a class="nav-link active" aria-current="page" href="{% url 'PaginaInicio' %}">Home</a>
+    <a class="nav-link active" aria-current="page" href="{% url 'Twitter-Incio' %}">Inicio</a>
+    
+  </nav>
+ 
+    <section class="hero-section">
+     
+        <div class="card-container">
+          <div class="card">
+            <div class="card-background" style="background-image: url(/static/foto3.png);"></div>
+            <div class="card-background" ></div>
+            <div class="content">
+              <div class="card-category">Universidad</div>
+              <h3 class="card-heading">USAC</h3>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-background" style="background-image: url(/static/foto.jpg);"></div>
+            <div class="card-background">
+               
+            </div>
+            <div class="content">
+              <div class="card-category">Nombre</div>
+              <h3 class="card-heading">Luis Salán</h3>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-background" style="background-image: url(/static/foto2.png);"></div>
+            <div class="content">
+              <div class="card-category">Materia</div>
+              <h3 class="card-heading">Lab IPC 2</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+      {% block body %}
+      
+    {% endblock %}
+    <footer class="pie-pagina">
+      <div class="grupo-1">
+          <div class="box">
+              <figure>
+                  <a href="{% url 'PaginaInicio' %}">
+                      <img src="{% static 'logo.png' %}" alt="Logo ChapinChat">
+                  </a>
+              </figure>
+          </div>
+          <div class="box">
+              <h2>SOBRE NOSOTROS</h2>
+              <p>Somos una red social capaz de desarrollar y analizar el contenido de nuestros usuarios. </p>
+              <p>Establecemos perfiles que favorezcan a conocer a todos nuestros usuarios y brindar un servicio personalizado.</p>
+          </div>
+          <div class="box">
+              <h2>SIGUENOS</h2>
+              <div class="red-social">
+                  <a href="#" class="fa fa-facebook"></a>
+                  <a href="#" class="fa fa-instagram"></a>
+                  <a href="#" class="fa fa-twitter"></a>
+                  <a href="#" class="fa fa-youtube"></a>
+              </div>
+          </div>
+      </div>
+      <div class="grupo-2">
+          <small>&copy; 2023 <b>Tecnologías Chapinas S.A.</b> - Todos los Derechos Reservados.</small>
+      </div>
+    </footer>
+      
+</body>
+</html>
+
+  

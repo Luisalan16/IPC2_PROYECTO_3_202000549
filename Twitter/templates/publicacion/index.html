@@ -21,7 +21,7 @@
         <section class="banner contenedor">
             <section class="banner_title">
                 <h2>Vive una nueva <br> experiencia!</h2>
-                <a href="" class="comenzar">Comenzar!</a>
+                <!-- <a href="" class="comenzar">Comenzar!</a> -->
             </section>
             <div class="banner_img">
                 <img src="{% static 'logo.png' %}" width= 30% height= auto alt="Banner">
@@ -40,5 +40,13 @@
             <div class="burbuja"></div>
         </div>
     </header>
+    {% block body %}
+      
+    {% endblock %}
+    <footer class="pie-pagina">
+        <div class="grupo-2">
+            <small>&copy; 2023 <b>Tecnologías Chapinas S.A.</b> - Todos los Derechos Reservados.</small>
+        </div>
+    </footer>
 </body>
 </html>

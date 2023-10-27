@@ -68,8 +68,12 @@ def verMensajes():
 @mensajes_app.route('/verConfiguracion', methods = ['GET'])
 def verConfiguracion():
     configuracion = config.getConfiguracion()
-    return jsonify(configuracion)
+    return jsonify(configuracion),200
 
+@mensajes_app.route('/consulta', methods=['GET'])
+def getConsulta():
+    data = config.consultarData()
+    return jsonify(data),200
 
 @mensajes_app.route('/agregarConfiguracion', methods = ['POST'])
 def agregarConfiguracion():
@@ -96,8 +100,8 @@ def agregarConfiguracion():
         return jsonify({
             'respuesta': 'Palabras procesadas con éxito',
             'palabras agregadas': len(palabras_positivas) + len(palabras_negativas),
-            'palabras_positivas': len(palabras_positivas),
-            'palabras_negativas': len(palabras_negativas)
+            'Mensajes con sentimiento positivo': len(palabras_positivas),
+            'Mensajes con sentimiento negativo': len(palabras_negativas)
         })
 
     except Exception as e:

@@ -5,12 +5,17 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+.carousel {
+    max-width: 80%;
+    margin: 0 auto; /* Centrar horizontalmente el carrusel */
+}
+
 
 /*:::::Pie de Pagina*/
 .pie-pagina{
     width: 100%;
     background-color: #0a141d;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     height: auto;

@@ -31,8 +31,8 @@ class Configuracion:
         json = []
         for i in self.configuraciones:
             configuracion = {
-                'palabras_positivas': i.good_feelings,
-                'palabras_negativas': i.bad_feelings
+                'Mensajes con sentimiento positivo': i.good_feelings,
+                'Mensajes con sentimiento negativo': i.bad_feelings
             }
             json.append(configuracion)
         return json

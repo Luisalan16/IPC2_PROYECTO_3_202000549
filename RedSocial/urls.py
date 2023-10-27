@@ -21,4 +21,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('Twitter.urls')),
     path('', include('Twitter.urls')),
+    path('', include('Twitter.urls')),
+    path('', include('Twitter.urls')),
+    path('', include('Twitter.urls')),
+    path('', include('Twitter.urls')),
+
 ]

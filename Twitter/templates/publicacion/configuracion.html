@@ -1,4 +1,4 @@
-{% load static %}
+<{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +46,23 @@
           </div>
         </div>
       </nav>
+      <br>
+      <h1>Archivo configuracion</h1>
+
+      <!-- Aqui creo mi formulario para subir mi archivo xml de configuracion -->
+      <div class="mb-3">
+        <label for="formFile" class="form-label">Cargar archivo de entrada</label>
+        <input class="form-control" type="file" id="formFile">
+    </div>
+
+    <div class="col-12">
+        <button class="btn btn-primary" type="submit">Subir</button>
+         <!-- Boton para consultar datos -->
+    <button type="button" class="btn btn-success"><a href="{% url 'Twitter-Incio' %}"
+      style="text-decoration: none; color: white;">Consultar datos</a></button>
+      <button type="button" class="btn btn-danger"><a href="{% url 'Twitter-Incio' %}"
+        style="text-decoration: none; color: white;">Regresar</button>
+    </div>
 
 
    

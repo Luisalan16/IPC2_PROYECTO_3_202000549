@@ -1,4 +1,4 @@
-{% load static %}
+<{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -46,6 +46,73 @@
           </div>
         </div>
       </nav>
+      <br>
+      <!-- Tablas -->
+      <h2 style="text-align: center;">Tabla de Mensajes</h2>
+    <table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto;"
+        border="3">
+        <tbody>
+            <tr style="height: 36px;background-color: #62f69d">
+                <td style="width: 15%; height: 36px; text-align: center;">Fecha</td>
+                <td style="width: 25%; height: 36px; text-align: center;">Mensaje</td>
+                
+            </tr>
+            {% for mensaje in mensajes %}
+            <tr style="height: 18px;background-color: #FFFFFF">
+                <td style="width: 15%; height: 18px; text-align: center;">{{mensaje.date}}</td>
+                <td style="width: 25%; height: 18px; text-align: center;">{{mensaje.text}}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    <!-- ---------------------------------------------------------------------------------------------------- -->
+      
+    <h2 style="text-align: center;">Tabla de Hashtags</h2>
+    <table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto;"
+        border="3">
+        <tbody>
+            <tr style="height: 36px;background-color: #62f69d">
+                <td style="width: 15%; height: 36px; text-align: center;">Fecha</td>
+                <td style="width: 25%; height: 36px; text-align: center;">Mensaje</td>
+                
+            </tr>
+            {% for mensaje in mensajes %}
+            <tr style="height: 18px;background-color: #FFFFFF">
+                <td style="width: 15%; height: 18px; text-align: center;">{{mensaje.date}}</td>
+                <td style="width: 25%; height: 18px; text-align: center;">{{mensaje.text}}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+
+    <h2 style="text-align: center;">Tabla de Usuarios</h2>
+    <table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto;"
+        border="3">
+        <tbody>
+            <tr style="height: 36px;background-color: #62f69d">
+                <td style="width: 15%; height: 36px; text-align: center;">Fecha</td>
+                <td style="width: 25%; height: 36px; text-align: center;">Mensaje</td>
+                
+            </tr>
+            {% for mensaje in mensajes %}
+            <tr style="height: 18px;background-color: #FFFFFF">
+                <td style="width: 15%; height: 18px; text-align: center;">{{mensaje.date}}</td>
+                <td style="width: 25%; height: 18px; text-align: center;">{{mensaje.text}}</td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+        
+    </table>
+    
+    
+    
+    <button type="button" class="btn btn-danger"><a href="{% url 'Twitter-Incio' %}"
+        style="text-decoration: none; color: white;">Regresar</button>
 
 
    

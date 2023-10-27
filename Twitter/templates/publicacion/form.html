@@ -46,7 +46,22 @@
           </div>
         </div>
       </nav>
+<!-- 
+       Aqui creo mi formulario para subir mi archivo xml de mensajes -->
+    <div class="mb-3">
 
+        <h2>Cargar archivo de entrada</h2>
+        <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+            {{formu.as_p}}
+            <button type="submit" class="save btn btn-primary">Guardar</button>
+        </form>
+    </div>
+
+ 
+    <button type="button" class="btn btn-success"><a href="{% url 'Contenido-Twitter' %}"
+      style="text-decoration: none; color: white;">Consultar datos</a></button>
+    </div>
+    <br>
 
    
 
