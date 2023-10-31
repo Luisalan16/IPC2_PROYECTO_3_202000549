@@ -5,7 +5,8 @@
 {% block body %}
 
 <embed src="{{ STATIC_URL }}Documentacion.pdf" type="application/pdf" width="100%" height="600px">
-    <p>Descarga<a href="{{ STATIC_URL }}archivo.pdf"> aquí</a>.</p>
+    <button type="button" class="btn btn-success"><a href="{{ STATIC_URL }}Documentacion.pdf"
+        style="text-decoration: none; color: white;">Descargar</button>
     
 
 {% endblock %}

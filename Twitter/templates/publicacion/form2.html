@@ -51,7 +51,7 @@
   
 
      <div class="container py-2">
-        <h1 style="text-align: center;"> Carga de los consumos </h1>
+        <h1 style="text-align: center;"> Carga de configuración </h1>
     </div>
     <div class="container py-6">
     <form action= "{% url 'Twitter-Inicio' %}" method="POST" enctype="multipart/form-data">
@@ -62,13 +62,9 @@
     
     <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
     <button type="button" class="btn btn-success"><a href="{% url 'Contenido-Twitter' %}"
-      style="text-decoration: none; color: white;">Consultar mensajes</button>
-    <button type="button" class="btn btn-warning"><a href="{% url 'Contenido-Twitter' %}"
-      style="text-decoration: none; color: white;">Consultar menciones</button>
-    <button type="button" class="btn btn-dark"><a href="{% url 'Contenido-Twitter' %}"
-      style="text-decoration: none; color: white;">Consultar hashtags</button>
-    <button type="button" class="btn btn-info"><a href="{% url 'Configuracion' %}"
-      style="text-decoration: none; color: white;">Cargar configuración</button>
+      style="text-decoration: none; color: white;">Consultar palabras</button>
+    <button type="button" class="btn btn-danger"><a href="{% url 'Twitter-Inicio' %}"
+      style="text-decoration: none; color: white;">Regresar</button>
     </form>
     </div> 
 

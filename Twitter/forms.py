@@ -1,4 +1,4 @@
 from django import forms
 
-class formMensaje(forms.Form):
-    archivo = forms.FileField()
+class FormMensaje(forms.Form):
+    file = forms.FileField(label='Cargar archivo XML')

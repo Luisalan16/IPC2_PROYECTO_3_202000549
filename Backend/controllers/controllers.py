@@ -1,5 +1,6 @@
 import xml.etree.ElementTree as ET
-import os
+from flask import json
+import re
 
 class Configuracion:
     def __init__(self) -> None:
@@ -16,7 +17,9 @@ class Configuracion:
     
     
     def setMensajes(self, date, text):
-        mensaje = Mensaje(date, text)
+        s = re.compile(r'(\d{2})/(\d{2})/(\d{4})')
+        date = s.search(date)
+        mensaje = Mensaje(date.group(), text)
         self.mensajes.append(mensaje)
     
     def setHashtags(self, hashtags, date):
@@ -27,6 +30,11 @@ class Configuracion:
         set = Mencion(user, date)
         self.menciones.append(set)
     
+    """ def configuracion_diccionario(Parametros):
+        params = Parametros.decode('utf-8')
+        params = json.loads(params)
+        print(params) """
+
     def getConfiguracion(self):
         json = []
         for i in self.configuraciones:

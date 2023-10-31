@@ -6,7 +6,7 @@ from datetime import timezone
 from fpdf import FPDF
 from unidecode import unidecode
 import re
-
+import json
 # creo mi app
 mensajes_app = Blueprint("mensajes_app", __name__)
 config = Configuracion()
@@ -20,18 +20,23 @@ def agregarMensajes():
     contMensajes = 0
     try:
         xml = request.data.decode('utf-8')
-        root = ET.fromstring(xml)
-        mensajes = root.findall('MENSAJE')
+        print("ACAAAAAAAAAAAAAAAAAAAAA")
+        print(xml)
+        """ params = json.loads(xml) """
+        root = ET.XML(xml)
+       
 
-        for mensaje in mensajes:
+        for mensaje in root.findall('MENSAJE'):
             fecha = mensaje.find('FECHA').text
             texto = mensaje.find('TEXTO').text
+
+            # Limpiar texto: eliminar acentos y convertir a minúsculas
+            texto = unidecode(texto).lower()
+
             hashtags_encontrados = re.findall(r'#\w+', texto)
             menciones_encontradas = re.findall(r'@\w+', texto)
             fecha = unidecode(fecha).lower()
-            texto = unidecode(texto).lower()
-            
-            
+
             for hashtag in hashtags_encontrados:
                 config.setHashtags(hashtag, fecha)
             for user in menciones_encontradas:
@@ -40,17 +45,20 @@ def agregarMensajes():
             config.setMensajes(fecha, texto)
             
             contMensajes += 1
+            """ config.configuracion_diccionario(request.data) """
+            print(xml)
 
         return jsonify({
             'respuesta': 'Mensajes procesados con éxito',
             'mensajes agregados': contMensajes
         })
-
+        
     except Exception as e:
         print("Error:", str(e))
         return jsonify({
             'respuesta': 'Error en la solicitud'
         })
+
 
 """ @mensajes_app.route('/verHashtags', methods=['GET'])
 def verHashtags():
@@ -65,12 +73,17 @@ def verMensajes():
     
     return jsonify(msj, tags, users),200
 
+@mensajes_app.route('/verMensajes', methods = ['GET'])
+def getMensajes():
+    mensajes = config.getMensajes()
+    return jsonify(mensajes),200
+
 @mensajes_app.route('/verConfiguracion', methods = ['GET'])
 def verConfiguracion():
     configuracion = config.getConfiguracion()
     return jsonify(configuracion),200
 
-@mensajes_app.route('/consulta', methods=['GET'])
+@mensajes_app.route('/verDatos', methods=['GET'])
 def getConsulta():
     data = config.consultarData()
     return jsonify(data),200
@@ -127,7 +140,10 @@ def resetearDatos():
             'respuesta': 'Error al resetear los datos'
         })
 
-
-
+""" @mensajes_app.route('/cargaArchivo', methods = ['POST'])
+def cargaArchivo():
+    resultado = Lectura()
+    return(resultado)
+ """
 
 
