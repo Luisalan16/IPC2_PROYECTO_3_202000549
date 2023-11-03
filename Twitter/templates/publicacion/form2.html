@@ -48,9 +48,24 @@
       </nav>
 <!-- 
        Aqui creo mi formulario para subir mi archivo xml de mensajes -->
+       <div class="container py-2">
+        <h1 style="text-align: center;">Carga configuración</h1>
+    </div>
+    <div class="container py-6">
+        <form action="{% url 'Configuracion' %}" method="POST" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            <label for="file">Cargar un archivo</label>
+            <br>
+            <input type="file" id="file" name="file" accept="text/xml">
+            <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+        </form>
+        <div id="message"></div>
+    </div>
+    <button type="button" class="btn btn-success"><a href="{% url 'Sentimientos' %}"
+      style="text-decoration: none; color: white;">Consultar palabras</button>
   
 
-     <div class="container py-2">
+     <!-- <div class="container py-2">
         <h1 style="text-align: center;"> Carga de configuración </h1>
     </div>
     <div class="container py-6">
@@ -61,18 +76,13 @@
     <input type="file" id="file" name="file" accept="text/xml">
     
     <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
-    <button type="button" class="btn btn-success"><a href="{% url 'Contenido-Twitter' %}"
+    <button type="button" class="btn btn-success"><a href="{% url 'Sentimientos' %}"
       style="text-decoration: none; color: white;">Consultar palabras</button>
     <button type="button" class="btn btn-danger"><a href="{% url 'Twitter-Inicio' %}"
       style="text-decoration: none; color: white;">Regresar</button>
     </form>
-    </div> 
+    </div>  -->
 
-   
-
-
-     
-    
       
       <script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"

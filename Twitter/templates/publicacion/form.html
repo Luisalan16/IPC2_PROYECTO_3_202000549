@@ -50,27 +50,39 @@
        Aqui creo mi formulario para subir mi archivo xml de mensajes -->
   
 
-     <div class="container py-2">
-        <h1 style="text-align: center;"> Carga de los consumos </h1>
+       <div class="container py-2">
+        <h1 style="text-align: center;">Carga Diccionario</h1>
     </div>
     <div class="container py-6">
-    <form action= "{% url 'Twitter-Inicio' %}" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-    <label for="file">Cargar un archivo</label>
-    <br>
-    <input type="file" id="file" name="file" accept="text/xml">
+        <form action="{% url 'Twitter-Inicio' %}" method="POST" enctype="multipart/form-data" id="upload-form">
+            {% csrf_token %}
+            <label for="file">Cargar un archivo</label>
+            <br>
+            <input type="file" id="file" name="file" accept="text/xml">
+            <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+        </form>
+        <div id="message"></div>
+    </div>
     
-    <button type="submit" class="btn btn-primary btn-lg">Enviar</button>
+    
+    
     <button type="button" class="btn btn-success"><a href="{% url 'Contenido-Twitter' %}"
       style="text-decoration: none; color: white;">Consultar mensajes</button>
-    <button type="button" class="btn btn-warning"><a href="{% url 'Contenido-Twitter' %}"
+    <button type="button" class="btn btn-warning"><a href="{% url 'Usuarios' %}"
       style="text-decoration: none; color: white;">Consultar menciones</button>
-    <button type="button" class="btn btn-dark"><a href="{% url 'Contenido-Twitter' %}"
+    <button type="button" class="btn btn-dark"><a href="{% url 'Tags' %}"
       style="text-decoration: none; color: white;">Consultar hashtags</button>
     <button type="button" class="btn btn-info"><a href="{% url 'Configuracion' %}"
       style="text-decoration: none; color: white;">Cargar configuración</button>
+       <!-- Para resetear -->
+    <form action="{% url 'Resetear-Base' %}" method="post">{% csrf_token %}
+      <button type="submit" class="btn btn-danger">Resetear base</button>
+    </form>
     </form>
     </div> 
+
+   
+  
 
    
 

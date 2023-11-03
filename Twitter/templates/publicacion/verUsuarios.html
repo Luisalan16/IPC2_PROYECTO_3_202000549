@@ -1,4 +1,4 @@
-<{% load static %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -48,26 +48,26 @@
       </nav>
       <br>
       <!-- Tablas -->
-      <h2 style="text-align: center;">Tabla de Mensajes</h2>
-<table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto; border: 3px solid;">
-    <tbody>
-        <tr style="height: 36px; background-color: #62f69d">
-            <td style="width: 15%; height: 36px; text-align: center; color: black;">Fecha</td>
-            <td style="width: 25%; height: 36px; text-align: center; color: black;">Mensaje</td>
-        </tr>
-        {% for mensaje in mensajes %}
-        <tr style="height: 18px; background-color: #FFFFFF">
-          <td style="width: 15%; height: 18px; text-align: center; color: black;">{{ fechas.0|linebreaksbr }}</td>
-
-            <td style="width: 25%; height: 18px; text-align: center; color: black;">{{ mensaje|linebreaksbr }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-<form action="{% url 'generar_reporte_mensajes_pdf' %}" method="post">
-  {% csrf_token %}
-  <button type="submit" class="btn btn-primary">Generar Reporte</button>
-</form>
+      <h2 style="text-align: center;">Tabla de Usuarios</h2>
+      <table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto; border: 3px solid;">
+          <tbody>
+              <tr style="height: 36px; background-color: #62f69d">
+                  <td style="width: 15%; height: 36px; text-align: center; color: black;">Fecha</td>
+                  <td style="width: 25%; height: 36px; text-align: center; color: black;">Usuario</td>
+              </tr>
+              {% for usuario in usuarios %}
+              <tr style="height: 18px; background-color: #FFFFFF">
+                  <td style="width: 15%; height: 18px; text-align: center; color: black;">{{ fechas.0|linebreaksbr }}</td>
+                  <td style="width: 25%; height: 18px; text-align: center; color: black;">{{ usuario|linebreaksbr }}</td>
+              </tr>
+              {% endfor %}
+          </tbody>
+      </table>
+      <form action="{% url 'generar_reporte_usuarios_pdf' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Generar Reporte</button>
+      </form>
+      
 
     
     

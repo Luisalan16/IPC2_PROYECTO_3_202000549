@@ -14,6 +14,21 @@ class Configuracion:
     def setConfiguracion(self, palabras_positivas, palabras_negativas):
         set = Sentimiento(palabras_positivas, palabras_negativas)
         self.configuraciones.append(set)
+
+    def reiniciarDiccionario(self):
+        root = ET.Element('Diccionario')
+        PalabrasBonitas = ET.SubElement(root, 'PalabrasBonitas')
+        PalabrasFeas = ET.SubElement(root, 'PalabrasFeas')
+        tree = ET.ElementTree(root)
+        ET.indent(tree, space="\t", level=0)
+        tree.write('controllers/Diccionario.xml', encoding='utf-8')
+
+    def resetearBaseDeDatos(self):
+        self.configuraciones = []
+        self.mensajes = []
+        self.hashtags_ = []
+        self.menciones = []
+        self.feelings = []
     
     
     def setMensajes(self, date, text):
@@ -30,50 +45,48 @@ class Configuracion:
         set = Mencion(user, date)
         self.menciones.append(set)
     
-    """ def configuracion_diccionario(Parametros):
-        params = Parametros.decode('utf-8')
-        params = json.loads(params)
-        print(params) """
 
     def getConfiguracion(self):
-        json = []
+        positivo = []
+        negativo = []
         for i in self.configuraciones:
-            configuracion = {
-                'Mensajes con sentimiento positivo': i.good_feelings,
-                'Mensajes con sentimiento negativo': i.bad_feelings
-            }
-            json.append(configuracion)
-        return json
-    
+            sentimiento_positivo = i.good_feelings,
+            sentimiento_negativo = i.bad_feelings
+            positivo.append(sentimiento_positivo)
+            negativo.append(sentimiento_negativo)
+        return positivo, negativo
+
+
     def getMensajes(self):
-        json = []
+        fechas = []
+        msjs = []
         for i in self.mensajes:
-            mensaje = {
-                'fecha': i.date,
-                'texto': i.text
-            }
-            json.append(mensaje)
-        return json
-    
-    def getTags(self):
-        json = []
-        for i in self.hashtags_:
-            tag = {
-                'hashtag': i.hashtags,
-                'fecha': i.date
-            }
-            json.append(tag)
-        return json
+            fecha = i.date
+            texto = i.text
+            fechas.append(fecha)
+            msjs.append(texto)
+        return fechas, msjs
     
     def getUsers(self):
-        json = []
+        fechas = []
+        usuarios = []
         for i in self.menciones:
-            user = {
-                'usuario': i.user,
-                'fecha': i.date
-            }
-            json.append(user)
-        return json
+            usuario = i.user
+            fecha = i.date
+            fechas.append(fecha)
+            usuarios.append(usuario)
+        return fechas, usuarios
+    
+    def getTags(self):
+        fechas = []
+        tags = []
+        for i in self.hashtags_:
+            tag = i.hashtags
+            fecha = i.date
+            
+            fechas.append(fecha)
+            tags.append(tag)
+        return fechas, tags
 
 
     # Método para consultar datos

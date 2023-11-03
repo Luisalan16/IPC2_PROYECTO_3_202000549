@@ -20,9 +20,6 @@ def agregarMensajes():
     contMensajes = 0
     try:
         xml = request.data.decode('utf-8')
-        print("ACAAAAAAAAAAAAAAAAAAAAA")
-        print(xml)
-        """ params = json.loads(xml) """
         root = ET.XML(xml)
        
 
@@ -45,8 +42,6 @@ def agregarMensajes():
             config.setMensajes(fecha, texto)
             
             contMensajes += 1
-            """ config.configuracion_diccionario(request.data) """
-            print(xml)
 
         return jsonify({
             'respuesta': 'Mensajes procesados con éxito',
@@ -73,10 +68,36 @@ def verMensajes():
     
     return jsonify(msj, tags, users),200
 
-@mensajes_app.route('/verMensajes', methods = ['GET'])
+""" CONSULTAS DE LA API """
+@mensajes_app.route('/verMensajes', methods=['GET'])
+def getMensajes():
+    fechas, mensajes = config.getMensajes()
+    data = {'fechas': fechas, 'mensajes': mensajes}
+    return jsonify(data), 200
+
+@mensajes_app.route('/verHashtags', methods = ['GET'])
+def getTags():
+    fechas, tags = config.getTags()
+    data = {'fechas': fechas, 'tags': tags}
+    return jsonify(data), 200
+
+@mensajes_app.route('/verUsuarios', methods = ['GET'])
+def getUsuarios():
+    fechas, usuarios = config.getUsers()
+    data = {'fechas': fechas, 'usuarios': usuarios}
+    return jsonify(data), 200
+
+@mensajes_app.route('/verPalabras', methods = ['GET'])
+def getSentimientos():
+    buenos, malas = config.getConfiguracion()
+    data = {'buenos': buenos, 'malas': malas}
+    return jsonify(data), 200
+
+""" @mensajes_app.route('/verMensajes', methods = ['GET'])
 def getMensajes():
     mensajes = config.getMensajes()
-    return jsonify(mensajes),200
+    print(mensajes)
+    return jsonify(mensajes),200 """
 
 @mensajes_app.route('/verConfiguracion', methods = ['GET'])
 def verConfiguracion():
@@ -125,7 +146,12 @@ def agregarConfiguracion():
 
 @mensajes_app.route('/resetearDatos', methods = ['POST'])
 def resetearDatos():
-    try:
+    config.resetearBaseDeDatos()
+    return jsonify({
+        'respuesta': 'Base de datos restablecida con éxito'
+    })
+
+    """ try:
         config.configuraciones = []
         config.menciones = []
         config.mensajes = []
@@ -138,12 +164,14 @@ def resetearDatos():
         print("Error:", str(e))
         return jsonify({
             'respuesta': 'Error al resetear los datos'
-        })
+        }) """
 
 """ @mensajes_app.route('/cargaArchivo', methods = ['POST'])
 def cargaArchivo():
     resultado = Lectura()
     return(resultado)
  """
+
+
 
 
