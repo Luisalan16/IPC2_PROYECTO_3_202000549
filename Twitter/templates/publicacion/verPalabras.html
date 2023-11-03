@@ -49,20 +49,26 @@
       <br>
       <!-- Tablas -->
       <h2 style="text-align: center;">Tabla de Sentimientos</h2>
-<table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto; border: 3px solid;">
-    <tbody>
-        <tr style="height: 36px; background-color: #62f69d">
-            <td style="width: 15%; height: 36px; text-align: center; color: black;">Malos</td>
-            <td style="width: 25%; height: 36px; text-align: center; color: black;">Buenos</td>
-        </tr>
-        {% for bueno in buenos %}
-        <tr style="height: 18px; background-color: #FFFFFF">
-            <td style="width: 15%; height: 18px; text-align: center; color: black;">{{ malos.0|linebreaksbr }}</td>
-            <td style="width: 25%; height: 18px; text-align: center; color: black;">{{ bueno|linebreaksbr }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
+      <table style="height: 54px; width: 90%; border-collapse: collapse; margin-left: auto; margin-right: auto; border: 3px solid;">
+        <tbody>
+            <tr style="height: 36px; background-color: #62f69d">
+                <td style="width: 15%; height: 36px; text-align: center; color: black;">Malos</td>
+                <td style="width: 25%; height: 36px; text-align: center; color: black;">Buenos</td>
+            </tr>
+            {% for buena in buenos %}
+            <tr style="height: 18px; background-color: #FFFFFF">
+                <td style="width: 15%; height: 18px; text-align: center; color: black;">{{ mala|linebreaksbr }}</td>
+                <td style="width: 25%; height: 18px; text-align: center; color: black;">{{ buena|linebreaksbr }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    dy>
 </table>
+<form action="{% url 'generar_reporte_sentimientos_pdf' %}" method="post">
+  {% csrf_token %}
+  <button type="submit" class="btn btn-primary">Generar Reporte</button>
+</form>
 
 
     

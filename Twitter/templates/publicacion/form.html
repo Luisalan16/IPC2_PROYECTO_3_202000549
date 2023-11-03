@@ -74,12 +74,17 @@
       style="text-decoration: none; color: white;">Consultar hashtags</button>
     <button type="button" class="btn btn-info"><a href="{% url 'Configuracion' %}"
       style="text-decoration: none; color: white;">Cargar configuración</button>
+      <button type="button" class="btn btn-primary">
+        <a href="{% url 'generar_xml_de_salida' %}" style="text-decoration: none; color: white;">Generar Reporte XML</a>
+    </button>
+    
        <!-- Para resetear -->
     <form action="{% url 'Resetear-Base' %}" method="post">{% csrf_token %}
       <button type="submit" class="btn btn-danger">Resetear base</button>
     </form>
     </form>
     </div> 
+
 
    
   

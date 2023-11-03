@@ -111,7 +111,47 @@ def getConsulta():
 
 @mensajes_app.route('/agregarConfiguracion', methods = ['POST'])
 def agregarConfiguracion():
-    contPalabras = 0  
+    try:
+        xml = request.data.decode('utf-8')
+        root = ET.fromstring(xml)
+
+        sentimientos_positivos = root.find('sentimientos_positivos')
+        sentimientos_negativos = root.find('sentimientos_negativos')
+
+        palabras_positivas = []
+        palabras_negativas = []
+
+        if sentimientos_positivos is not None:
+            palabras_positivas = [unidecode(palabra.text).lower() for palabra in sentimientos_positivos.findall('palabra')]
+
+        if sentimientos_negativos is not None:
+            palabras_negativas = [unidecode(palabra.text).lower() for palabra in sentimientos_negativos.findall('palabra')]
+
+        # Realiza la conversión a neutral si es necesario
+        palabras_positivas = [palabra if palabra not in palabras_negativas else 'neutral' for palabra in palabras_positivas]
+        palabras_negativas = [palabra if palabra not in palabras_positivas else 'neutral' for palabra in palabras_negativas]
+
+        # Combina las listas de palabras
+        palabras_totales = palabras_positivas + palabras_negativas
+
+        config.setConfiguracion(palabras_totales, [])
+       
+        return jsonify({
+            'respuesta': 'Palabras procesadas con éxito',
+            'palabras agregadas': len(palabras_totales),
+            'Palabras neutrales': palabras_totales.count('neutral'),
+            'Mensajes con sentimiento positivo': palabras_positivas.count('neutral'),
+            'Mensajes con sentimiento negativo': palabras_negativas.count('neutral')
+        })
+
+    except Exception as e:
+        print("Error:", str(e))
+        return jsonify({
+            'respuesta': 'Error en la solicitud'
+        })
+    
+    
+    """  contPalabras = 0  
     try:
         xml = request.data.decode('utf-8')
         root = ET.fromstring(xml)
@@ -142,7 +182,7 @@ def agregarConfiguracion():
         print("Error:", str(e))
         return jsonify({
             'respuesta': 'Error en la solicitud'
-        })
+        }) """
 
 @mensajes_app.route('/resetearDatos', methods = ['POST'])
 def resetearDatos():
@@ -151,26 +191,7 @@ def resetearDatos():
         'respuesta': 'Base de datos restablecida con éxito'
     })
 
-    """ try:
-        config.configuraciones = []
-        config.menciones = []
-        config.mensajes = []
-        config.hashtags_ = []
-        config.feelings = []
-        return jsonify({
-            'respuesta': 'Datos reseteados con éxito',
-        })
-    except Exception as e:
-        print("Error:", str(e))
-        return jsonify({
-            'respuesta': 'Error al resetear los datos'
-        }) """
-
-""" @mensajes_app.route('/cargaArchivo', methods = ['POST'])
-def cargaArchivo():
-    resultado = Lectura()
-    return(resultado)
- """
+    
 
 
 

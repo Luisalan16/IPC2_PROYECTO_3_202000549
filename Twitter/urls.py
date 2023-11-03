@@ -18,4 +18,6 @@ urlpatterns = [
      path('generar_reporte_pdf/', views.generar_reporte_pdf, name='generar_reporte_pdf'),
      path('generar_reporte_usuarios_pdf/', views.generar_reporte_usuarios_pdf, name='generar_reporte_usuarios_pdf'),
      path('generar_reporte_mensajes_pdf/', views.generar_reporte_mensajes_pdf, name='generar_reporte_mensajes_pdf'),
+     path('generar_reporte_sentimientos_pdf/', views.generar_reporte_sentimientos_pdf, name='generar_reporte_sentimientos_pdf'),
+     path('generar_xml_de_salida/', views.generar_xml_de_salida, name='generar_xml_de_salida'),
 ]
